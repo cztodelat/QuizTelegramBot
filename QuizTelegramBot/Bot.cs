@@ -29,6 +29,7 @@ namespace QuizTelegramBot
             commands = new List<Command>();
             commands.Add(new StartCommand());
             commands.Add(new RemoveKeyboardButtonsCommand());
+            commands.Add(new StopQuizCommand());
 
             //Add CallBack commands here
             callBackCommands = new List<CallBackCommand>();
