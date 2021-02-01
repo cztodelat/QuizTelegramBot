@@ -1,0 +1,11 @@
+C:\Users\serge\Desktop\C#\Годные проекты\QuizTelegramBot\QuizTelegramBot\bin\Debug\netcoreapp2.1\QuizTelegramBot.deps.json
+C:\Users\serge\Desktop\C#\Годные проекты\QuizTelegramBot\QuizTelegramBot\bin\Debug\netcoreapp2.1\QuizTelegramBot.runtimeconfig.json
+C:\Users\serge\Desktop\C#\Годные проекты\QuizTelegramBot\QuizTelegramBot\bin\Debug\netcoreapp2.1\QuizTelegramBot.runtimeconfig.dev.json
+C:\Users\serge\Desktop\C#\Годные проекты\QuizTelegramBot\QuizTelegramBot\bin\Debug\netcoreapp2.1\QuizTelegramBot.dll
+C:\Users\serge\Desktop\C#\Годные проекты\QuizTelegramBot\QuizTelegramBot\obj\Debug\netcoreapp2.1\QuizTelegramBot.csprojAssemblyReference.cache
+C:\Users\serge\Desktop\C#\Годные проекты\QuizTelegramBot\QuizTelegramBot\obj\Debug\netcoreapp2.1\QuizTelegramBot.csproj.CoreCompileInputs.cache
+C:\Users\serge\Desktop\C#\Годные проекты\QuizTelegramBot\QuizTelegramBot\obj\Debug\netcoreapp2.1\QuizTelegramBot.AssemblyInfoInputs.cache
+C:\Users\serge\Desktop\C#\Годные проекты\QuizTelegramBot\QuizTelegramBot\obj\Debug\netcoreapp2.1\QuizTelegramBot.AssemblyInfo.cs
+C:\Users\serge\Desktop\C#\Годные проекты\QuizTelegramBot\QuizTelegramBot\bin\Debug\netcoreapp2.1\QuizTelegramBot.pdb
+C:\Users\serge\Desktop\C#\Годные проекты\QuizTelegramBot\QuizTelegramBot\obj\Debug\netcoreapp2.1\QuizTelegramBot.dll
+C:\Users\serge\Desktop\C#\Годные проекты\QuizTelegramBot\QuizTelegramBot\obj\Debug\netcoreapp2.1\QuizTelegramBot.pdb
