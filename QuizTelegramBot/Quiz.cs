@@ -14,21 +14,31 @@ namespace QuizTelegramBot
         private static ReplyKeyboardRemove keyboardRemove = new ReplyKeyboardRemove();
         static ReplyKeyboardMarkup keyboardMarkup;
 
-        public static bool IsPlaying { get; set; } = false;
-        public static bool IsAnswerCorrect { get; set; } = false;
-        public static int Count { get; set; } = 0;
+        static bool IsPlaying { get; set; } = false;
+        static bool IsAnswerCorrect { get; set; } = false;
+        static int Count { get; set; } = 0;
 
-        public static string[][] answers;
+        static string[][] answers;
         public static List<QuestionModel> Questions { get; set; }
-        public static QuestionModel question;
-
+        static QuestionModel question;
 
         //Quize logic
         public static async Task Playing(Message message, TelegramBotClient client)
         {
             string result = "";
 
-            if (IsPlaying && IsAnswer(answers, message.Text))
+            if (!IsPlaying)
+            {
+                await client.SendTextMessageAsync(
+                    chatId: message.Chat,
+                    text: "You are not playing!\n" +
+                    "If you want to check your knowledge 🧠. Just type 👇\n\n" +
+                    "/start"
+                    );
+                return;
+            }
+
+            if (IsAnswer(answers, message.Text))
             {
                 if (message.Text == question.CorrectAnswer.Trim())
                 {
@@ -59,12 +69,12 @@ namespace QuizTelegramBot
                      chatId: message.Chat,
                      replyMarkup: keyboardRemove,
                      text: result).ConfigureAwait(false);
-
-                IsPlaying = false;
+                StopQuiz();
                 return;
             }
 
-            if (IsPlaying && IsAnswerCorrect)
+            //Ask new question
+            if (IsAnswerCorrect)
             {
                 answers = Questions[Count].GetAnswers();
                 keyboardMarkup = answers;
@@ -78,7 +88,6 @@ namespace QuizTelegramBot
                 ).ConfigureAwait(false);
             }
         }
-
 
         static bool IsAnswer(string[][] answers, string answer)
         {
@@ -94,5 +103,30 @@ namespace QuizTelegramBot
             return result;
         }
 
+        public static void StopQuiz()
+        {
+            IsPlaying = false;
+            IsAnswerCorrect = false;
+            Count = 0;
+        }
+
+        public async static Task StartQuiz(Message message, TelegramBotClient client)
+        {
+            IsPlaying = true;
+
+            answers = Questions[Count]?.GetAnswers();
+
+            //Bind buttons
+            keyboardMarkup = answers;
+            keyboardMarkup.ResizeKeyboard = true;
+            question = Questions[Count];
+
+            //Ask a question 
+            await client.SendTextMessageAsync(
+            chatId: message.Chat,
+            text: HttpUtility.HtmlDecode(question.Question),
+            replyMarkup: keyboardMarkup
+            ).ConfigureAwait(false);
+        }
     }
 }

@@ -1,9 +1,9 @@
-﻿using QuizTelegramBot.MessageFormatters;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
+using QuizTelegramBot.MessageFormatters;
 
 namespace QuizTelegramBot.Commands
 {
@@ -19,7 +19,7 @@ namespace QuizTelegramBot.Commands
 
             await client.SendTextMessageAsync(
                 chatId: message.Chat,
-                text: "Hi there\nChoose category 👇",
+                text: "Choose category 👇",
                 replyMarkup: inlineKeyboardMarkup
             ).ConfigureAwait(false);
         }

@@ -17,11 +17,12 @@ namespace QuizTelegramBot.Commands
         {
             await client.SendTextMessageAsync(
                 chatId: message.Chat,
-                text: "Your quiz was stoped\n" +
-                "To play new one type\n\n" +
+                text: "🛑Your quiz was stoped🛑\n" +
+                "👇To play new one type👇\n\n" +
                 "/start",
                 replyMarkup: keyboardRemove           
             ).ConfigureAwait(false);
+            Quiz.StopQuiz();
         }
     }
 }

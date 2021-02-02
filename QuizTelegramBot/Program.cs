@@ -103,7 +103,6 @@ namespace QuizTelegramBot
 
         }
 
-
         private static async Task<List<QuestionModel>> Load(string category)
         {
             QuizModel quiz = await QuizProcessor.LoadQuiz(category);

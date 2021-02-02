@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace QuizTelegramBot.MessageFormatters
@@ -8,14 +7,15 @@ namespace QuizTelegramBot.MessageFormatters
     public static class TopicsMessageFormatter
     {
         //Dictionary collection with quiz categories <Key - name of category, Value - API number of this category>
+        //Add new topics here
         private static Dictionary<string, string> topics = new Dictionary<string, string>()
         {
-            { "History",  "23"},
-            { "Science: Computers",  "18"},
-            { "Japanice Anime & Manga",  "31"},
-            { "Books",  "10"},
-            { "Film",  "11"},
-            { "Video Games",  "15"},
+            { "🏺 History 🏺",  "23"},
+            { "🖥️ Science: Computers 🖥️",  "18"},
+            { "🥭 Japanice Anime & Manga 🥭",  "31"},
+            { "📚 Books 📚",  "10"},
+            { "🎬 Film 🎬",  "11"},
+            { "🎮 Video Games 🎮",  "15"},
         };
 
         //Set category buttons in horisontal orientation
