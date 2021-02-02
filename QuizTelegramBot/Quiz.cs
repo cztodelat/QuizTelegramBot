@@ -17,6 +17,7 @@ namespace QuizTelegramBot
         static bool IsPlaying { get; set; } = false;
         static bool IsAnswerCorrect { get; set; } = false;
         static int Count { get; set; } = 0;
+        private static int Score { get; set; } = 0;
 
         static string[][] answers;
         public static List<QuestionModel> Questions { get; set; }
@@ -26,7 +27,6 @@ namespace QuizTelegramBot
         public static async Task Playing(Message message, TelegramBotClient client)
         {
             string result = "";
-
             if (!IsPlaying)
             {
                 await client.SendTextMessageAsync(
@@ -44,7 +44,7 @@ namespace QuizTelegramBot
                 {
                     result = "Good job!";
                     IsAnswerCorrect = true;
-                    Count++;
+                    Score++;
                 }
                 else
                 {
@@ -52,40 +52,19 @@ namespace QuizTelegramBot
                     IsAnswerCorrect = false;
                 }
 
+                Count++;
                 await client.SendTextMessageAsync(
                       chatId: message.Chat,
                       text: result).ConfigureAwait(false);
-            }
 
-            if (Count == Questions?.Count)
-            {
-                result = $"You are a big brain 🧠, you have answered all questions 🎉\n" +
-                         $"Your score: {Count}\n" +
-                         $"Do you want to check your knowledge again?\n" +
-                         $"Type: 👇\n\n" +
-                         $"/start";
+                if (Count == Questions?.Count)
+                {
+                    SendResult(message, client);
+                    return;
+                }
 
-                await client.SendTextMessageAsync(
-                     chatId: message.Chat,
-                     replyMarkup: keyboardRemove,
-                     text: result).ConfigureAwait(false);
-                StopQuiz();
-                return;
-            }
+                await AskNewQuestion(message, client);
 
-            //Ask new question
-            if (IsAnswerCorrect)
-            {
-                answers = Questions[Count].GetAnswers();
-                keyboardMarkup = answers;
-                keyboardMarkup.ResizeKeyboard = true;
-                question = Questions[Count];
-
-                await client.SendTextMessageAsync(
-                chatId: message.Chat,
-                text: HttpUtility.HtmlDecode(question.Question),
-                replyMarkup: keyboardMarkup
-                ).ConfigureAwait(false);
             }
         }
 
@@ -108,25 +87,44 @@ namespace QuizTelegramBot
             IsPlaying = false;
             IsAnswerCorrect = false;
             Count = 0;
+            Score = 0;
         }
 
         public async static Task StartQuiz(Message message, TelegramBotClient client)
         {
             IsPlaying = true;
+            await AskNewQuestion(message, client);
+        }
 
-            answers = Questions[Count]?.GetAnswers();
-
-            //Bind buttons
+        private static async Task AskNewQuestion(Message message, TelegramBotClient client)
+        {
+            answers = Questions[Count].GetAnswers();
             keyboardMarkup = answers;
             keyboardMarkup.ResizeKeyboard = true;
             question = Questions[Count];
 
-            //Ask a question 
             await client.SendTextMessageAsync(
             chatId: message.Chat,
             text: HttpUtility.HtmlDecode(question.Question),
             replyMarkup: keyboardMarkup
             ).ConfigureAwait(false);
         }
+
+        private static async void SendResult(Message message, TelegramBotClient client)
+        {
+
+           string result = $"You are a big brain 🧠, you have answered all questions 🎉\n" +
+                         $"Your score: {Score}\n" +
+                         $"Do you want to check your knowledge again?\n" +
+                         $"Type: 👇\n\n" +
+                         $"/start";
+
+            await client.SendTextMessageAsync(
+                 chatId: message.Chat,
+                 replyMarkup: keyboardRemove,
+                 text: result).ConfigureAwait(false);
+
+            StopQuiz();
+        } 
     }
 }
