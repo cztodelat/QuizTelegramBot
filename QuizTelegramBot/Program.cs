@@ -47,8 +47,8 @@ namespace QuizTelegramBot
                 {
                     if (command.Contains(callBack.Data))
                     {
-                        command.Execute(callBack.Message, client);
                         await client.DeleteMessageAsync(callBack.Message.Chat, callBack.Message.MessageId);
+                        command.Execute(callBack.Message, client);
                         return;
                     }
                 }

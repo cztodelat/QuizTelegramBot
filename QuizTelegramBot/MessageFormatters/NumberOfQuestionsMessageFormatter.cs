@@ -15,7 +15,7 @@ namespace QuizTelegramBot.MessageFormatters
         private static Dictionary<string, string> numberOfQuestions = new Dictionary<string, string>()
         {
             { "10 questions 🤔",  "10_questions"},
-            { "20 questions 🧐",  "20_question"},
+            { "20 questions 🧐",  "20_questions"},
             { "30 questions 😵‍💫",  "30_questions"},
         };
 
