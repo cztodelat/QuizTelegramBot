@@ -13,7 +13,6 @@ namespace QuizTelegramBot
 {
     class Program
     {
-        private static InlineKeyboardMarkup InlineKeyboard { get; set; }
         private static TelegramBotClient client;
 
         static void Main(string[] args)
@@ -53,29 +52,6 @@ namespace QuizTelegramBot
                         return;
                     }
                 }
-
-                await client.DeleteMessageAsync(callBack.Message.Chat, callBack.Message.MessageId);
-                
-                //List of Play 🎲 buttons
-                List<InlineKeyboardButton> inlineButtons = new List<InlineKeyboardButton>()
-                {
-                    new InlineKeyboardButton() { Text= "Play 🎲", CallbackData= "play_quiz" },
-                    new InlineKeyboardButton() { Text= "Play 🎲", CallbackData= "play_quiz" },
-                    new InlineKeyboardButton() { Text= "Play 🎲", CallbackData= "play_quiz" },
-                    new InlineKeyboardButton() { Text= "Play 🎲", CallbackData= "play_quiz" },
-                };
-
-                //KeyboardButtons
-                InlineKeyboard = new InlineKeyboardMarkup(inlineButtons);
-
-                await client.SendTextMessageAsync(
-                    chatId: callBack.Message.Chat,
-                    text: "To play game press 👇",
-                    replyMarkup: InlineKeyboard
-                    ).ConfigureAwait(false);
-
-                //Gets questions from API
-                Quiz.Questions = await Load(callBack.Data);
             }
 
         }
@@ -101,12 +77,6 @@ namespace QuizTelegramBot
 
             await Quiz.Playing(message, client);
 
-        }
-
-        private static async Task<List<QuestionModel>> Load(string category)
-        {
-            QuizModel quiz = await QuizProcessor.LoadQuiz(category);
-            return quiz.Questions;
         }
     }
 }

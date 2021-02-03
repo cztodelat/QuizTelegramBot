@@ -6,14 +6,14 @@ using Telegram.Bot.Types;
 
 namespace QuizTelegramBot.CallBackCommands
 {
-    public class BooksTopicCallBack : CallBackCommand
+    public class MediumLevelCallBack : CallBackCommand
     {
-        public override string CallBackData => "10";
+        public override string CallBackData => "medium";
 
         public async override void Execute(Message message, TelegramBotClient client)
         {
-            await DifficultyLevelMessageFormatter.ShowDifficultyLevelMessage(message, client);
-            QuizProcessor.QuizAPIParams += $"{CallBackData}";
+            await NumberOfQuestionsMessageFormatter.ShowNumberOfQuestionsMessage(message, client);
+            QuizProcessor.QuizAPIParams += "_medium";
         }
     }
 }

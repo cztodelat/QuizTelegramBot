@@ -20,7 +20,7 @@ namespace QuizTelegramBot.MessageFormatters
         };
 
         //Set difficulty level buttons in horisontal orientation
-        public static InlineKeyboardButton[][] SetInlineDifficultyLevel()
+        private static InlineKeyboardButton[][] SetInlineDifficultyLevel()
         {
             int i = 0;
             InlineKeyboardButton[][] inlineKeyboardButtons = new InlineKeyboardButton[difficultyLevel.Count][];
@@ -36,7 +36,6 @@ namespace QuizTelegramBot.MessageFormatters
 
             return inlineKeyboardButtons;
         }
-
 
         public static async Task ShowDifficultyLevelMessage(Message message, TelegramBotClient client)
         {

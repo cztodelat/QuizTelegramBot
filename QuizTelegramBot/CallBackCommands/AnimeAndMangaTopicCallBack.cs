@@ -14,6 +14,7 @@ namespace QuizTelegramBot.CallBackCommands
         public async override void Execute(Message message, TelegramBotClient client)
         {
             await DifficultyLevelMessageFormatter.ShowDifficultyLevelMessage(message, client);
+            QuizProcessor.QuizAPIParams += $"{CallBackData}";
         }
     }
 }

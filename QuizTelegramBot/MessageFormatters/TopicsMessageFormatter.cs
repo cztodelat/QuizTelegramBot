@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Telegram.Bot;
+using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace QuizTelegramBot.MessageFormatters
@@ -19,7 +22,7 @@ namespace QuizTelegramBot.MessageFormatters
         };
 
         //Set category buttons in horisontal orientation
-        public static InlineKeyboardButton[][] SetInlineTopics()
+        private static InlineKeyboardButton[][] SetInlineTopics()
         {
             int i = 0;
             InlineKeyboardButton[][] inlineKeyboardButtons = new InlineKeyboardButton[topics.Count][];
@@ -36,6 +39,16 @@ namespace QuizTelegramBot.MessageFormatters
             return inlineKeyboardButtons;
         }
 
+        public static async Task ShowInlineTopicsMessage(Message message, TelegramBotClient client)
+        {
+            InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(SetInlineTopics());
+
+            await client.SendTextMessageAsync(
+                chatId: message.Chat,
+                text: "Choose category 👇",
+                replyMarkup: inlineKeyboardMarkup
+            ).ConfigureAwait(false);
+        }
 
 
     }

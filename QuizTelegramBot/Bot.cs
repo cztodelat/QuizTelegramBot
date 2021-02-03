@@ -40,6 +40,12 @@ namespace QuizTelegramBot
             callBackCommands.Add(new BooksTopicCallBack());
             callBackCommands.Add(new FilmTopicCallBack());
             callBackCommands.Add(new VideoGamesTopicCallBack());
+            callBackCommands.Add(new EasyLevelCallBack());
+            callBackCommands.Add(new MediumLevelCallBack());
+            callBackCommands.Add(new HardLevelCallBack());
+            callBackCommands.Add(new TenQuestionsCallBack());
+            callBackCommands.Add(new TwentyQuestionsCallBack());
+            callBackCommands.Add(new ThirtyQuestionsCallBack());
 
 
             client = new TelegramBotClient(AppSettings.Key) { Timeout = TimeSpan.FromSeconds(10) };
