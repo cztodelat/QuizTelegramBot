@@ -34,6 +34,13 @@ namespace QuizTelegramBot
             //Add CallBack commands here
             callBackCommands = new List<CallBackCommand>();
             callBackCommands.Add(new PlayCallBackCommand());
+            callBackCommands.Add(new HistoryTopicCallBack());
+            callBackCommands.Add(new ComputersTopicCallBack());
+            callBackCommands.Add(new AnimeAndMangaTopicCallBack());
+            callBackCommands.Add(new BooksTopicCallBack());
+            callBackCommands.Add(new FilmTopicCallBack());
+            callBackCommands.Add(new VideoGamesTopicCallBack());
+
 
             client = new TelegramBotClient(AppSettings.Key) { Timeout = TimeSpan.FromSeconds(10) };
             //await client.SetWebhookAsync(""); Когда настраиваем webhook сделать этот метод асинхронным 

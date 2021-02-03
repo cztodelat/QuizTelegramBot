@@ -18,6 +18,7 @@ namespace QuizTelegramBot
         static bool IsAnswerCorrect { get; set; } = false;
         static int Count { get; set; } = 0;
         private static int Score { get; set; } = 0;
+        private static int RightAnswers { get; set; } = 0;
 
         static string[][] answers;
         public static List<QuestionModel> Questions { get; set; }
@@ -45,6 +46,7 @@ namespace QuizTelegramBot
                     result = "Good job!";
                     IsAnswerCorrect = true;
                     Score++;
+                    RightAnswers++;
                 }
                 else
                 {
@@ -88,6 +90,7 @@ namespace QuizTelegramBot
             IsAnswerCorrect = false;
             Count = 0;
             Score = 0;
+            RightAnswers = 0;
         }
 
         public async static Task StartQuiz(Message message, TelegramBotClient client)
@@ -112,17 +115,26 @@ namespace QuizTelegramBot
 
         private static async void SendResult(Message message, TelegramBotClient client)
         {
-
-           string result = $"You are a big brain 🧠, you have answered all questions 🎉\n" +
-                         $"Your score: {Score}\n" +
-                         $"Do you want to check your knowledge again?\n" +
+            string newGameMessage = $"Do you want to check your knowledge again?\n" +
                          $"Type: 👇\n\n" +
                          $"/start";
+
+
+            string result = $"You are a big brain 🧠!\n\n" +
+                          $"Your results  🎉\n\n" +
+                          $"✅ Correct answers {RightAnswers}\n" +
+                          $"❌ Wrong answers {Questions.Count - RightAnswers}\n" +
+                          $"🏆 Your score: {Score}\n";
 
             await client.SendTextMessageAsync(
                  chatId: message.Chat,
                  replyMarkup: keyboardRemove,
                  text: result).ConfigureAwait(false);
+
+            await client.SendTextMessageAsync(
+                 chatId: message.Chat,
+                 replyMarkup: keyboardRemove,
+                 text: newGameMessage).ConfigureAwait(false);
 
             StopQuiz();
         } 
