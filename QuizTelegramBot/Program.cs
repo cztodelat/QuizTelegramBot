@@ -11,28 +11,39 @@ using System.Collections.Generic;
 
 namespace QuizTelegramBot
 {
+    
     class Program
     {
         private static TelegramBotClient client;
 
         static void Main(string[] args)
         {
-            //Initialize API client 
-            APIHelper.InitializeClient();
-            //Gets client
-            client = Bot.GetClient();
+            try
+            {
+                //Initialize API client 
+                APIHelper.InitializeClient();
+                //Gets client
+                client = Bot.GetClient();
 
-            //Gets bot name
-            var me = client.GetMeAsync().Result;
-            Console.WriteLine($"Bot name: {me.FirstName}");
+                //Gets bot name
+                var me = client.GetMeAsync().Result;
+                Console.WriteLine($"Bot name: {me.FirstName}");
 
-            //Bind events 
-            client.OnMessage += BotOnMessageReceived;
-            client.OnUpdate += BotOnUpdate;
-            client.StartReceiving();
+                //Bind events 
+                client.OnMessage += BotOnMessageReceived;
+                client.OnUpdate += BotOnUpdate;
+                client.StartReceiving();
 
-            Console.ReadLine();
-            client.StopReceiving();
+                Console.ReadLine();
+                client.StopReceiving();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);                
+                Console.WriteLine(ex.StackTrace);                
+            }
+
+          
         }
 
         private async static void BotOnUpdate(object sender, UpdateEventArgs e)
@@ -48,7 +59,7 @@ namespace QuizTelegramBot
                     if (command.Contains(callBack.Data))
                     {
                         await client.DeleteMessageAsync(callBack.Message.Chat, callBack.Message.MessageId);
-                        command.Execute(callBack.Message, client);
+                        command.Execute(callBack, client);
                         return;
                     }
                 }

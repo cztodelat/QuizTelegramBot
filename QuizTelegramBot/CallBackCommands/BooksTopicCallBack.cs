@@ -10,9 +10,9 @@ namespace QuizTelegramBot.CallBackCommands
     {
         public override string CallBackData => "10";
 
-        public async override void Execute(Message message, TelegramBotClient client)
+        public async override void Execute(CallbackQuery callback, TelegramBotClient client)
         {
-            await DifficultyLevelMessageFormatter.ShowDifficultyLevelMessage(message, client);
+            await DifficultyLevelMessageFormatter.ShowDifficultyLevelMessage(callback.Message, client);
             QuizProcessor.QuizAPIParams += $"{CallBackData}";
         }
     }

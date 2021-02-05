@@ -10,7 +10,7 @@ namespace QuizTelegramBot.CallBackCommands
     {
         public abstract string CallBackData { get; }
 
-        public abstract void Execute(Message message, TelegramBotClient client);
+        public abstract void Execute(CallbackQuery callback, TelegramBotClient client);
 
         public bool Contains(string data)
         {

@@ -6,6 +6,7 @@ using QuizTelegramBot.Models;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
+using QuizTelegramBot.Exceptions;
 
 namespace QuizTelegramBot
 {
@@ -101,6 +102,11 @@ namespace QuizTelegramBot
 
         private static async Task AskNewQuestion(Message message, TelegramBotClient client)
         {
+            if (Questions.Count == 0)
+            {
+                throw new APIDataNotFoundException("Sorry, something went wrong, start quiz again try other parameters \n;(");
+            }
+
             answers = Questions[Count].GetAnswers();
             keyboardMarkup = answers;
             keyboardMarkup.ResizeKeyboard = true;

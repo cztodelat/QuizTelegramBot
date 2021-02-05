@@ -8,9 +8,9 @@ namespace QuizTelegramBot.CallBackCommands
     {
         public override string CallBackData => "10_questions";
 
-        public async override void Execute(Message message, TelegramBotClient client)
+        public async override void Execute(CallbackQuery callback, TelegramBotClient client)
         {
-            await PlayMessageFormatter.ShowPlayMessage(message, client);
+            await PlayMessageFormatter.ShowPlayMessage(callback.Message , client);
             QuizProcessor.QuizAPIParams += "_" + CallBackData.Split("_")[0];
 
             //Gets questions from API

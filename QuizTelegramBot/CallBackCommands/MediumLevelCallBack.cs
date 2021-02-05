@@ -10,9 +10,9 @@ namespace QuizTelegramBot.CallBackCommands
     {
         public override string CallBackData => "medium";
 
-        public async override void Execute(Message message, TelegramBotClient client)
+        public async override void Execute(CallbackQuery callback, TelegramBotClient client)
         {
-            await NumberOfQuestionsMessageFormatter.ShowNumberOfQuestionsMessage(message, client);
+            await NumberOfQuestionsMessageFormatter.ShowNumberOfQuestionsMessage(callback.Message, client);
             QuizProcessor.QuizAPIParams += "_medium";
         }
     }
